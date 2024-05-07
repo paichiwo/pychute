@@ -21,6 +21,9 @@ Issues = "https://github.com/paichiwo/pychute/issues"
 [build-system]
 requires = [
     "setuptools>=42",
-    "wheel"
+    "wheel",
+    "lxml",
+    "selenium",
+    "beautifulsoup4",
 ]
 build-backend = "setuptools.build_meta"
