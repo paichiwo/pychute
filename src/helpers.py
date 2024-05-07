@@ -17,10 +17,3 @@ def format_duration_string(result):
         formatted_parts = ['00'] * (3 - len(formatted_parts)) + formatted_parts
     formatted_duration = ':'.join(formatted_parts)
     return formatted_duration
-
-
-def convert_to_mp3(mp4_path, mp3_path):
-    # Convert given file
-    file_to_convert = AudioFileClip(mp4_path)
-    file_to_convert.write_audiofile(mp3_path)
-    file_to_convert.close()

@@ -4,7 +4,7 @@ from lxml import html
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from config import USER_AGENT
-from helpers import convert_to_mp3, format_duration_string, format_date_string, format_title_string
+from helpers import format_duration_string, format_date_string
 
 
 class PyChute:
@@ -98,9 +98,6 @@ class PyChute:
             if not os.path.exists(output_filename):
                 print('Downloading...')
                 urllib.request.urlretrieve(target, output_filename, reporthook=on_progress_callback)
-
-                # this is not needed - only for my tube getter
-                convert_to_mp3(output_filename, output_filename[:-3]+'mp3')
 
             else:
                 print('File already downloaded')
