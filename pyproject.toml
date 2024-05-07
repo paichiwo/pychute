@@ -1,6 +1,6 @@
 [project]
 name = "pychute"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Lukasz Zerucha", email="lzerucha@gmail.com" },
 ]
@@ -12,6 +12,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+]
+dependencies = [
+    "lxml",
+    "selenium",
+    "beautifulsoup4"
 ]
 
 [project.urls]
