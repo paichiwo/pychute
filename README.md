@@ -2,11 +2,12 @@
 
 
 ### A library that helps download videos from BitChute website
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/paichiwo/pychute/total)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/paichiwo/pychute)
 ![GitHub License](https://img.shields.io/github/license/paichiwo/pychute)
 ![GitHub Tag](https://img.shields.io/github/v/tag/paichiwo/pychute)
 ![GitHub Release](https://img.shields.io/github/v/release/paichiwo/pychute)
+![PyPI - Version](https://img.shields.io/pypi/v/pychute)
+
 ---
 
 ### Installation:
