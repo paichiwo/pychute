@@ -3,8 +3,8 @@ import urllib.request
 from lxml import html
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from config import USER_AGENT
-from helpers import format_duration_string, format_date_string
+from src.config import USER_AGENT
+from src.helpers import format_duration_string, format_date_string
 
 
 class PyChute:
@@ -88,12 +88,12 @@ class PyChute:
         else:
             raise Exception('Video length could not be fetched')
 
-    def download(self, on_progress_callback=None):
+    def download(self, on_progress_callback=None, filename=None):
         result = self.__tree.xpath('//*[@id="player"]/source')
 
         if len(result) != 0:
             target = result[0].get('src')
-            output_filename = f'{self.title()}.mp4'  # add extension
+            output_filename = f'{filename if filename else self.title()}.mp4'  # add extension
 
             if not os.path.exists(output_filename):
                 print('Downloading...')
