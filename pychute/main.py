@@ -48,7 +48,6 @@ class PyChute:
     def publish_date(self) -> str:
         result = self.__soup.find('div', class_='video-publish-date').text
         if result:
-            print(result)
             return format_date_string(result)
         else:
             raise Exception('Publish date could not be fetched')
