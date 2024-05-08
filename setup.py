@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='pychute',
-    version='0.0.6',
+    version='0.0.7',
     packages=setuptools.find_packages(),
     url='http://github.com/paichiwo/pychute',
     author='Lukasz Zerucha',
@@ -17,4 +17,4 @@ setup(
     keywords=['bitchute', 'downloader', 'youtube-dl', 'pytube', 'video']
 )
 
-install_requires = ['lxml', 'beautifulsoup4', 'selenium']
+install_requires = ['beautifulsoup4', 'selenium']

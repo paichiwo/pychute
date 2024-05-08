@@ -1,6 +1,6 @@
 [project]
 name = "pychute"
-version = "0.0.6"
+version = "0.0.7"
 authors = [
   { name="Lukasz Zerucha", email="lzerucha@gmail.com" },
 ]
@@ -14,7 +14,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "lxml",
     "selenium",
     "beautifulsoup4"
 ]
@@ -27,7 +26,6 @@ Issues = "https://github.com/paichiwo/pychute/issues"
 requires = [
     "setuptools>=42",
     "wheel",
-    "lxml",
     "selenium",
     "beautifulsoup4",
 ]
