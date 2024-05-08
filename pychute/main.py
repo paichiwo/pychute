@@ -87,6 +87,16 @@ class PyChute:
         else:
             raise Exception('Video length could not be fetched')
 
+    def filesize(self) -> int:
+        result = self.__tree.xpath('//*[@id="player"]/source')
+        if len(result) != 0:
+            target = result[0].get('src')
+            request = urllib.request.Request(target, method='HEAD')
+            response = urllib.request.urlopen(request)
+            return int(response.headers.get('Content-Length', 0))
+        else:
+            raise Exception('Source for the video does not exist')
+
     def download(self, on_progress_callback=None, filename=None):
         result = self.__tree.xpath('//*[@id="player"]/source')
 
