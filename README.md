@@ -62,7 +62,7 @@ from pychute import PyChute
 url = "bitchute url"
 
 pc = PyChute(url=url)
-output_path = f"D:\\Downloads/{pc.title()}.mp4"
+output_path = f"D:\\Downloads/{pc.title()}"
 
 pc.download()
 ```
@@ -78,7 +78,7 @@ from pychute import PyChute
 url = "bitchute url"
 
 pc = PyChute(url=url)
-output_path = f"D:\\Downloads/{pc.title()}.mp4"
+output_path = f"D:\\Downloads/{pc.title()}"
 
 # video title
 print(pc.title())
