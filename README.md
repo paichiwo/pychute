@@ -1,10 +1,9 @@
-# pychute
+# PyChute
 
 
 ### A library that helps download videos from BitChute website
 
 
----
 
 ### Installation:
 `pip install pychute`
@@ -18,9 +17,10 @@ url = "bitchute url"
 pc = PyChute(url=url)
 pc.download()
 ```
----
+
 
 ### Additional features:
+
 
 #### Progress callback
 If you need to get progress like percentage or download speed, you can create a function 
@@ -50,7 +50,7 @@ url = "bitchute url"
 pc = PyChute(url=url)
 pc.download(on_progress_callback=show_progress)
 ```
-___
+
 
 #### Filename
 You can pass filename as a parameter in the form of a string to specify download location.
@@ -67,7 +67,6 @@ output_path = f"D:\\Downloads/{pc.title()}"
 pc.download()
 ```
 
----
 
 #### Other data
 Apart from downloading, you can access other data about BitChute video:
@@ -90,7 +89,7 @@ print(pc.channel())
 print(pc.publish_date())
 
 # video duration
-print(pc.length())
+print(pc.duration())
 
 # subscriptions number
 print(pc.subscriptions())
@@ -103,4 +102,7 @@ print(pc.views())
 
 # file size in bytes
 print(pc.filesize())
+
+# thumbnail image
+print(pc.thumbnail())
 ```
