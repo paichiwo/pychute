@@ -5,6 +5,13 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
+    def format_file_size(size_bytes) -> str:
+        """Convert bytes to MB / GB"""
+        if size_bytes >= 1024 ** 3:
+            return f'{(size_bytes / (1024 ** 3)):.2f} GB'
+        else:
+            return f'{(size_bytes / (1024 ** 2)):.2f} MB'
+
     def report_hook(count, block_size, total_size):
         # progress percentage
         progress = min(1.0, float(count * block_size) / total_size)
@@ -24,7 +31,9 @@ if __name__ == '__main__':
     print(pc.title())
     print(pc.channel())
     print(pc.publish_date())
-    print(pc.length())
+    print(pc.duration())
     print(pc.subscriptions())
     print(pc.likes())
     print(pc.views())
+    print(pc.filesize())
+    print(pc.thumbnail())
