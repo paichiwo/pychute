@@ -1,4 +1,3 @@
-lxml
 beautifulsoup4
 selenium
 setuptools
