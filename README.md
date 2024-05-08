@@ -62,7 +62,7 @@ from pychute import PyChute
 url = "bitchute url"
 
 pc = PyChute(url=url)
-output_path = f"D:\\Downloads/{pc.title()}"
+output_path = f"D:\\Downloads/{pc.title()}.mp4"
 
 pc.download()
 ```
@@ -78,7 +78,7 @@ from pychute import PyChute
 url = "bitchute url"
 
 pc = PyChute(url=url)
-output_path = f"D:\\Downloads/{pc.title()}"
+output_path = f"D:\\Downloads/{pc.title()}.mp4"
 
 # video title
 print(pc.title())
@@ -100,4 +100,7 @@ print(pc.likes())
 
 # video views
 print(pc.views())
+
+# file size in bytes
+print(pc.filesize())
 ```
