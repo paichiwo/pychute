@@ -1,6 +1,5 @@
 import os
 import urllib.request
-from lxml import html
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from pychute.config import USER_AGENT
@@ -14,16 +13,6 @@ class PyChute:
         # Initial setup for the wrapper
         if url:
 
-            # --------- urllib -----------
-            headers = {'User-Agent': USER_AGENT}
-            request = urllib.request.Request(url, headers=headers)
-            html_page = urllib.request.urlopen(request).read()
-            if html_page:
-                self.__tree = html.document_fromstring(html_page)
-            else:
-                raise Exception('URL could not be fetched')
-
-            # -------- selenium ----------
             options = webdriver.ChromeOptions()
             options.add_argument('headless')
             options.add_argument(f'user-agent={USER_AGENT}')
@@ -80,34 +69,41 @@ class PyChute:
         else:
             raise Exception('Subscriptions could not be fetched')
 
-    def length(self) -> str:
+    def duration(self) -> str:
         result = self.__soup.find('meta', {'name': 'duration'}).get('content')
         if result:
             return format_duration_string(result)
         else:
-            raise Exception('Video length could not be fetched')
+            raise Exception('Video duration could not be fetched')
 
     def filesize(self) -> int:
-        result = self.__tree.xpath('//*[@id="player"]/source')
+        result = self.__soup.find('div', {'id': 'player'})
+
         if len(result) != 0:
-            target = result[0].get('src')
+            target = result.find('source').get('src')
             request = urllib.request.Request(target, method='HEAD')
             response = urllib.request.urlopen(request)
             return int(response.headers.get('Content-Length', 0))
         else:
             raise Exception('Source for the video does not exist')
 
+    def thumbnail(self) -> str:
+        result = self.__soup.find('div', {'id': 'player'})
+        if len(result) != 0:
+            return result.find('img').get('src')
+        else:
+            raise Exception('Thumbnail could not be fetched')
+
     def download(self, on_progress_callback=None, filename=None):
-        result = self.__tree.xpath('//*[@id="player"]/source')
+        result = self.__soup.find('div', {'id': 'player'})
 
         if len(result) != 0:
-            target = result[0].get('src')
+            target = result.find('source').get('src')
             output_filename = f'{filename if filename else self.title()}.mp4'  # add extension
 
             if not os.path.exists(output_filename):
                 print('Downloading...')
                 urllib.request.urlretrieve(target, output_filename, reporthook=on_progress_callback)
-
             else:
                 print('File already downloaded')
 
