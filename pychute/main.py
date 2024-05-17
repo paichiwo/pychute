@@ -94,6 +94,13 @@ class PyChute:
         else:
             raise Exception('Thumbnail could not be fetched')
 
+    def description(self) -> str:
+        result = self.__soup.find('div', {'class': 'teaser'}).text
+        if len(result) != 0:
+            return result
+        else:
+            raise Exception('Description could not be fetched')
+
     def download(self, on_progress_callback=None, filename=None):
         result = self.__soup.find('div', {'id': 'player'})
 
