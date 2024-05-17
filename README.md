@@ -1,5 +1,7 @@
 # PyChute
 
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pychute)
+
 
 ### A library that helps download videos from BitChute website
 
@@ -102,6 +104,9 @@ print(pc.views())
 
 # file size in bytes
 print(pc.filesize())
+
+# description
+print(pc.description())
 
 # thumbnail image
 print(pc.thumbnail())
