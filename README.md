@@ -66,7 +66,7 @@ url = "bitchute url"
 pc = PyChute(url=url)
 output_path = f"D:\\Downloads/{pc.title()}"
 
-pc.download()
+pc.download(filename=output_path)
 ```
 
 
@@ -77,9 +77,7 @@ Apart from downloading, you can access other data about BitChute video:
 from pychute import PyChute
 
 url = "bitchute url"
-
 pc = PyChute(url=url)
-output_path = f"D:\\Downloads/{pc.title()}"
 
 # video title
 print(pc.title())
