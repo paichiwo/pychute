@@ -1,6 +1,6 @@
 [project]
 name = "pychute"
-version = "0.0.8"
+version = "0.0.9"
 authors = [
   { name="Lukasz Zerucha", email="lzerucha@gmail.com" },
 ]
