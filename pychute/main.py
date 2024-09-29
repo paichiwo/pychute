@@ -14,7 +14,7 @@ class PyChute:
         if url:
 
             options = webdriver.ChromeOptions()
-            options.add_argument('headless')
+            options.add_argument("--headless=old")
             options.add_argument(f'user-agent={USER_AGENT}')
             driver = webdriver.Chrome(options=options)
             driver.get(url)
