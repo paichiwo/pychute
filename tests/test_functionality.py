@@ -27,7 +27,7 @@ if __name__ == '__main__':
     link2 = 'https://www.bitchute.com/video/3Hfh7Kz7cb3A/'
 
     pc = PyChute(url=link2)
-    pc.download(on_progress_callback=report_hook, filename='d:\\test')
+    # pc.download(on_progress_callback=report_hook, filename='d:\\test')
     print(pc.title())
     print(pc.channel())
     print(pc.publish_date())
