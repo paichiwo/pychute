@@ -1,4 +1,5 @@
 import os
+import re
 import urllib.request
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -95,9 +96,10 @@ class PyChute:
             raise Exception('Thumbnail could not be fetched')
 
     def description(self) -> str:
-        result = self.__soup.find('div', {'class': 'teaser'}).text
-        if len(result) != 0:
-            return result
+        result = self.__soup.find('div', {'class': 'teaser'})
+        if result:
+            description_text = result.get_text(separator="\n").strip()
+            return description_text
         else:
             raise Exception('Description could not be fetched')
 
