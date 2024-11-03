@@ -24,7 +24,7 @@ if __name__ == '__main__':
             print(f'Download speed: {speed:.2f} KB/s')
 
     link1 = 'https://www.bitchute.com/video/n75YV5it6lHm/'
-    link2 = 'https://www.bitchute.com/video/3Hfh7Kz7cb3A/'
+    link2 = 'https://old.bitchute.com/video/fFUV9Gpim7zc/'
 
     pc = PyChute(url=link2)
     # pc.download(on_progress_callback=report_hook, filename='d:\\test')
