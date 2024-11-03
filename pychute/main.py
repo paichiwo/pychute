@@ -13,6 +13,8 @@ class PyChute:
 
         # Initial setup for the wrapper
         if url:
+            if not 'old' in url:
+                url = url.replace('https://www.bitchute.com/', 'https://old.bitchute.com/')
 
             options = webdriver.ChromeOptions()
             options.add_argument("--headless=old")
