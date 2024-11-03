@@ -10,6 +10,16 @@
 ### Installation:
 `pip install pychute`
 
+## Note:
+Bitchute recently changed their website, however this script is still usable, you just need to add "old" at 
+the beginning of the url address:
+
+from:  
+`https://www.bitchute.com/video/fFUV9Gpim7zc/`   
+to:   
+`https://old.bitchute.com/video/fFUV9Gpim7zc/`
+
+
 ### How to use:
 ```python
 from pychute import PyChute
