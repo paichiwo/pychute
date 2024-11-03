@@ -1,11 +1,24 @@
 from datetime import datetime
+import re
 
 
-def format_date_string(result):
-    # Format date string to DD-MM-YYYY HH:MM:SS format
-    date_stripped = result[20:-10] + result[-8:-2]
-    date = datetime.strptime(date_stripped, '%H:%M %Z on %B %d, %Y').strftime('%d-%m-%Y %H:%M:%S')
-    return date
+def format_date_string(date_str):
+    # Clean up the date string by removing unnecessary text and whitespace
+    date_stripped = date_str.strip().replace("First published at ", "").strip()
+
+    # Remove any ordinal suffixes like 'st', 'nd', 'rd', 'th' using regex
+    date_stripped = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_stripped)
+
+    # Remove any trailing period
+    date_stripped = date_stripped.rstrip('.')
+
+    # Parse the cleaned date string
+    try:
+        date = datetime.strptime(date_stripped, '%H:%M %Z on %B %d, %Y')
+        return date.strftime('%d-%m-%Y %H:%M:%S')
+    except ValueError as e:
+        # Handle the error if date format is still not matching
+        raise ValueError(f"Could not parse date: '{date_stripped}' with error: {e}")
 
 
 def format_duration_string(result):
