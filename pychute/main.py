@@ -17,7 +17,7 @@ class PyChute:
                 url = url.replace('https://www.bitchute.com/', 'https://old.bitchute.com/')
 
             options = webdriver.ChromeOptions()
-            options.add_argument("--headless=old")
+            options.add_argument("--headless=new")
             options.add_argument(f'user-agent={USER_AGENT}')
             driver = webdriver.Chrome(options=options)
             driver.get(url)
