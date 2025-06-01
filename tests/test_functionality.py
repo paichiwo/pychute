@@ -25,8 +25,9 @@ if __name__ == '__main__':
 
     link1 = 'https://www.bitchute.com/video/n75YV5it6lHm/'
     link2 = 'https://old.bitchute.com/video/fFUV9Gpim7zc/'
+    link3 = 'https://www.bitchute.com/video/aC8qhbI16PWs'
 
-    pc = PyChute(url=link1)
+    pc = PyChute(url=link3)
     # pc.download(on_progress_callback=report_hook, filename='d:\\test')
     print(pc.title())
     print(pc.channel())
