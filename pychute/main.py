@@ -19,9 +19,9 @@ class PyChute:
             options = webdriver.ChromeOptions()
             options.add_argument("--headless=new")
             options.add_argument(f'user-agent={USER_AGENT}')
-            driver = webdriver.Chrome(options=options)
-            driver.get(url)
-            page = driver.page_source
+            self.driver = webdriver.Chrome(options=options)
+            self.driver.get(url)
+            page = self.driver.page_source
             if page:
                 self.__soup = BeautifulSoup(page, 'html.parser')
             else:
@@ -29,6 +29,27 @@ class PyChute:
 
         else:
             raise Exception('Need url to proceed')
+
+    def __get_iframe_soup(self):
+        iframe = self.__soup.find('iframe', {'id': 'video-player-iframe'})
+        if iframe and iframe.get('src'):
+            iframe_url = iframe['src']
+            self.driver.get(iframe_url)
+            iframe_page = self.driver.page_source
+            return BeautifulSoup(iframe_page, 'html.parser')
+        else:
+            raise Exception('Iframe with video not found')
+
+    def __extract_media_url(self):
+        iframe_soup = self.__get_iframe_soup()
+        scripts = iframe_soup.find_all('script')
+
+        for script in scripts:
+            if script.string and 'media_url' in script.string:
+                match = re.search(r"media_url\s*=\s*'([^']+)'", script.string)
+                if match:
+                    return match.group(1)
+        raise Exception('Media URL not found in iframe')
 
     def title(self) -> str:
         result = self.__soup.find('h1', {'id': 'video-title'}).text
@@ -80,22 +101,16 @@ class PyChute:
             raise Exception('Video duration could not be fetched')
 
     def filesize(self) -> int:
-        result = self.__soup.find('div', {'id': 'player'})
-
-        if len(result) != 0:
-            target = result.find('source').get('src')
-            request = urllib.request.Request(target, method='HEAD')
-            response = urllib.request.urlopen(request)
-            return int(response.headers.get('Content-Length', 0))
-        else:
-            raise Exception('Source for the video does not exist')
+        media_url = self.__extract_media_url()
+        request = urllib.request.Request(media_url, method='HEAD')
+        response = urllib.request.urlopen(request)
+        return int(response.headers.get('Content-Length', 0))
 
     def thumbnail(self) -> str:
-        result = self.__soup.find('div', {'id': 'player'})
-        if len(result) != 0:
-            return result.find('img').get('src')
-        else:
-            raise Exception('Thumbnail could not be fetched')
+        thumb_meta = self.__soup.find('meta', {'property': 'og:image'})
+        if not thumb_meta or not thumb_meta.get('content'):
+            raise Exception('Thumbnail not found')
+        return thumb_meta['content']
 
     def description(self) -> str:
         result = self.__soup.find('div', {'class': 'teaser'})
@@ -106,17 +121,17 @@ class PyChute:
             raise Exception('Description could not be fetched')
 
     def download(self, on_progress_callback=None, filename=None):
-        result = self.__soup.find('div', {'id': 'player'})
+        media_url = self.__extract_media_url()
+        output_filename = f'{filename if filename else self.title()}.mp4'
 
-        if len(result) != 0:
-            target = result.find('source').get('src')
-            output_filename = f'{filename if filename else self.title()}.mp4'  # add extension
+        if os.path.exists(output_filename):
+            print('File already downloaded')
+            return
 
-            if not os.path.exists(output_filename):
-                print('Downloading...')
-                urllib.request.urlretrieve(target, output_filename, reporthook=on_progress_callback)
-            else:
-                print('File already downloaded')
+        print('Downloading...')
+        urllib.request.urlretrieve(media_url, output_filename, reporthook=on_progress_callback)
+        print('Download complete')
 
-        else:
-            raise Exception('Source for the video does not exist')
+    def __del__(self):
+        if hasattr(self, 'driver'):
+            self.driver.quit()
